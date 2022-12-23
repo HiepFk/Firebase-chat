@@ -1,16 +1,17 @@
 import React from "react";
 import { signInWithPopup } from "firebase/auth";
-import { auth, provider } from "../firebase";
+import { auth, provider } from "../utils/firebase";
+import { successAlert, errorAlert } from "../utils/alert";
+import { toast } from "react-toastify";
 
 function SignIn() {
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        // const user = result.user;
-        alert("User signed");
+        successAlert(toast, "User signed");
       })
       .catch((error) => {
-        alert("Error");
+        errorAlert(toast, "Eror");
       });
   };
 
