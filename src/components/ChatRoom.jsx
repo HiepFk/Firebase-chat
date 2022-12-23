@@ -26,7 +26,7 @@ function ChatRoom() {
     await uploadBytes(imageRef, file).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
         addDoc(messagesRef, {
-          text: formValue,
+          text: formValue?.trim(),
           createdAt: new Date(),
           uid,
           photoURL,
@@ -43,7 +43,7 @@ function ChatRoom() {
       await uploadImg(img, uid, photoURL);
     } else {
       addDoc(messagesRef, {
-        text: formValue,
+        text: formValue?.trim(),
         createdAt: new Date(),
         uid,
         photoURL,
@@ -79,7 +79,10 @@ function ChatRoom() {
         />
         <FileUpload showImg={showImg} setShowImg={setShowImg} setImg={setImg} />
 
-        <button type="submit" disabled={!formValue && !img}>
+        <button
+          type="submit"
+          disabled={(!formValue || formValue?.trim()?.length <= 0) && !img}
+        >
           🐍
         </button>
       </form>
